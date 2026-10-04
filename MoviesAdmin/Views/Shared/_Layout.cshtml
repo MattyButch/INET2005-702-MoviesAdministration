@@ -48,12 +48,22 @@
 
     <footer class="footer">
         <div class="container">
-            &copy; 2026 - MoviesAdmin - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2026 - Truffle Pig - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+            document.getElementById("darkModeToggle")
+            .addEventListener("click", function () {
+            document.body.classList.toggle("dark-mode");
+            });
+
+            });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
