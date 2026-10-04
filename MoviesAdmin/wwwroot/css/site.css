@@ -1,3 +1,12 @@
+:root {
+    --brand-primary: #1E4E8C;
+    --brand-dark: #0B1F3A;
+    --brand-light: #3B6FB6;
+    --brand-text: #F1E6C8;
+    --brand-accent: #C9962C;
+}
+
+
 html {
   font-size: 14px;
 }
@@ -6,6 +15,10 @@ html {
   html {
     font-size: 16px;
   }
+}
+
+.Pig-Font {
+    font-family: "Aboreto", system-ui;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -28,4 +41,86 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.navbar-brand img {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.site-title {
+    font-family: "Aboreto", system-ui;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: 10px;
+    color: var(--brand-text) !important;
+}
+
+.navbar {
+    background-color: var(--brand-dark) !important;
+    border-bottom: 6px solid var(--brand-accent);
+}
+ 
+.navbar .nav-link,
+.navbar .navbar-brand {
+color: var(--brand-text) !important;
+}
+
+footer {
+    background-color: var(--brand-dark);
+    color: white;
+    border-top: 6px solid var(--brand-accent);
+}
+
+ 
+footer .container {
+    text-align: center;
+}
+
+/* Top navbar text */
+
+ 
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .navbar-nav .nav-link {
+    color: var(--brand-text) !important;
+}
+
+ 
+/* Footer text */
+ 
+.footer,
+.footer *,
+footer,
+footer * {
+    color: var(--brand-text) !important;
+}
+
+.card-header {
+    background-color: var(--brand-light);
+    color: white;
+}
+
+ 
+.table thead {
+    background-color: var(--brand-light);
+    color: white;
+}
+
+ 
+.btn-primary {
+    background-color: var(--brand-accent);
+    border-color: var(--brand-accent);
+}
+
+.btn-pig {
+    background-color: var(--brand-accent);
+    color: white;
+    border: none;
+}
+
+ 
+.btn-pig:hover {
+    background-color: var(--brand-primary);
+    color: white;
 }
