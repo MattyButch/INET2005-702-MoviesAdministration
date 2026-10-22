@@ -47,6 +47,9 @@
         @foreach (var item in Model) {
                 <tr>
                     <td>
+                        <img src="@item.ImageUrl" alt="@item.Title" class="thumbnail"/>
+                    </td>
+                    <td>
                         @Html.DisplayFor(model => item.Title)
                     </td>
                     <td>

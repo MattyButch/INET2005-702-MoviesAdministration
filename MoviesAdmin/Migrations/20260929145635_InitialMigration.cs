@@ -9,6 +9,7 @@ namespace MoviesAdmin.Migrations
     public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
+        /// //SQL That this Generates : CREATE TABLE
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(

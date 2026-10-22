@@ -124,3 +124,11 @@ footer * {
     background-color: var(--brand-primary);
     color: white;
 }
+
+/*Picutres*/
+
+.thumbnail{
+    width: 200px;
+    height: auto;
+
+}

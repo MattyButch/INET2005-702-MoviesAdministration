@@ -2,14 +2,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesAdmin.Models;
+using MoviesAdmin.Services;
 
 public class MoviesController : Controller
 {
     private readonly MoviesAdminContext _context;
+    private readonly AzureStorageService _blobService;
 
-    public MoviesController(MoviesAdminContext context)
+    public MoviesController(MoviesAdminContext context, AzureStorageService blobService)
     {
         _context = context;
+        _blobService = blobService;
     }
 
     // GET: MOVIES
@@ -44,17 +47,33 @@ public class MoviesController : Controller
         return View();
     }
 
+
+    /*
+     * TO-DO handle image being required
+     */
+
     // POST: MOVIES/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,Genre,Rating,ReleaseDate")] Movie movie)
+    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,Genre,Rating,ReleaseDate")] Movie movie, IFormFile imageFile) //xollects inputs and file input from form
     {
         if (ModelState.IsValid)
         {
+
+
+            //Save file in Azure storage
+            string imageURL = await _blobService.UploadFileAsync(imageFile, imageFile.FileName);
+
+            // Save image Url in Trail record
+            movie.ImageUrl = imageURL;
+
+            //Save a record in database
             _context.Add(movie);
             await _context.SaveChangesAsync();
+
+            //Redirect to index
             return RedirectToAction(nameof(Index));
         }
         return View(movie);

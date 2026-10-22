@@ -20,6 +20,9 @@ namespace MoviesAdmin.Models
         [Required]
         public string Rating { get; set; } = string.Empty; //Movie rating as in "PG-14" or "R", not viewer or critic score 
 
+        //Url to image stored in Azure storage
+        public string ImageUrl { get; set; } = string.Empty;
+
         [DisplayFormat(DataFormatString = "{0:yyyy - MM - dd}")]
         public DateTime ReleaseDate { get; set; } = DateTime.Now; 
     }
