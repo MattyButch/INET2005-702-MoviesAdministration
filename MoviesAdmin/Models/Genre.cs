@@ -8,6 +8,6 @@ namespace MoviesAdmin.Models
         public int Id { get; set; }
         [StringLength(100, MinimumLength = 1)]
         [Required]
-        public string Title { get; set; } = string.Empty;
+        public string GenreName { get; set; } = string.Empty;
     }
 }
