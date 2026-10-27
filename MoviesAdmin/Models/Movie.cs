@@ -1,10 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 
 namespace MoviesAdmin.Models
 {
     public class Movie
     {
         public int Id { get; set; } //Unique ID for each movie, use as primary key
+
+        //Foreign Key
+        //public int GenreID { get; set; }
+
+        //naviagation property
+        //[ValidateNever]
+        //public Genre Genre { get; set; } = null!;
 
         [StringLength(100, MinimumLength = 1)]
         [Required]
@@ -15,11 +24,11 @@ namespace MoviesAdmin.Models
         [Required]
         [Range (0, 60000)]
         public int Length { get; set; } //Length of movie in minutes. Makes the most sense to have it as Int. 
-        [Required]
-        public string Genre { get; set; } = string.Empty; //Movies will have a single genre (for now)
+       
         [Required]
         public string Rating { get; set; } = string.Empty; //Movie rating as in "PG-14" or "R", not viewer or critic score 
-
+        [Required]
+        public string AudienceRating { get; set; } = string.Empty;
         //Url to image stored in Azure storage
         public string ImageUrl { get; set; } = string.Empty;
 

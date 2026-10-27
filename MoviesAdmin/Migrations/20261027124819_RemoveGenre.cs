@@ -5,11 +5,15 @@
 namespace MoviesAdmin.Migrations
 {
     /// <inheritdoc />
-    public partial class AddImageUrlColumn : Migration
+    public partial class RemoveGenre : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Genre",
+                table: "Movie");
+
             migrationBuilder.AlterColumn<string>(
                 name: "Title",
                 table: "Movie",
@@ -29,7 +33,7 @@ namespace MoviesAdmin.Migrations
                 oldType: "nvarchar(max)");
 
             migrationBuilder.AddColumn<string>(
-                name: "ImageUrl",
+                name: "AudienceRating",
                 table: "Movie",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -40,8 +44,15 @@ namespace MoviesAdmin.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ImageUrl",
+                name: "AudienceRating",
                 table: "Movie");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Genre",
+                table: "Movie",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Title",
