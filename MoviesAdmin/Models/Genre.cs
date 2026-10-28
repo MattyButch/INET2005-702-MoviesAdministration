@@ -9,5 +9,10 @@ namespace MoviesAdmin.Models
         [StringLength(100, MinimumLength = 1)]
         [Required]
         public string GenreName { get; set; } = string.Empty;
+
+
+        //Navigation Property
+        [ValidateNever]
+        public List<Movie> Movies { get; set; } = new();
     }
 }

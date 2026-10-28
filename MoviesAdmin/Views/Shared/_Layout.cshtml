@@ -39,6 +39,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Genres">Genres</a>
                         </li>
                     </ul>
+                    @* Auth0 nav bar linsk start*@
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile">@User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+                    </ul>
+                    @*auth0 nav bar links end*@
                 </div>
             </div>
         </nav>

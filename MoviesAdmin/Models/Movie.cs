@@ -12,8 +12,11 @@ namespace MoviesAdmin.Models
         //public int GenreID { get; set; }
 
         //naviagation property
-        //[ValidateNever]
-        //public Genre Genre { get; set; } = null!;
+        [Display(Name = "Genre")]
+        public int GenreId { get; set; }
+
+        [ValidateNever]
+        public Genre Genre { get; set; } = null!;
 
         [StringLength(100, MinimumLength = 1)]
         [Required]

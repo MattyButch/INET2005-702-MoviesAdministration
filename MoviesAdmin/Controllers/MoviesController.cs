@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesAdmin.Models;
 using MoviesAdmin.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 public class MoviesController : Controller
 {
+    //Add authorize 
     private readonly MoviesAdminContext _context;
     private readonly AzureStorageService _blobService;
 
@@ -44,6 +46,9 @@ public class MoviesController : Controller
     // GET: MOVIES/Create
     public IActionResult Create()
     {
+        var genres = _context.Genre.ToList();
+        ViewBag.GenreId = new SelectList(genres, "Id", "GenreName");
+
         return View();
     }
 
@@ -57,7 +62,7 @@ public class MoviesController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,Rating,AudienceRating,ReleaseDate")] Movie movie, IFormFile imageFile) //xollects inputs and file input from form
+    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,Rating,AudienceRating,GenreId,ReleaseDate")] Movie movie, IFormFile imageFile) //xollects inputs and file input from form
     {
         if (ModelState.IsValid)
         {
