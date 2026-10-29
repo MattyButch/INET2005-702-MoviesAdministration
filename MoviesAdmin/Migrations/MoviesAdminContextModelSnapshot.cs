@@ -65,9 +65,8 @@ namespace MoviesAdmin.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AudienceRating")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AudienceRatingId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -98,6 +97,8 @@ namespace MoviesAdmin.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AudienceRatingId");
+
                     b.HasIndex("GenreId");
 
                     b.ToTable("Movie");
@@ -105,13 +106,26 @@ namespace MoviesAdmin.Migrations
 
             modelBuilder.Entity("MoviesAdmin.Models.Movie", b =>
                 {
+                    b.HasOne("MoviesAdmin.Models.AudienceRating", "AudienceRating")
+                        .WithMany("Movies")
+                        .HasForeignKey("AudienceRatingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MoviesAdmin.Models.Genre", "Genre")
                         .WithMany("Movies")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AudienceRating");
+
                     b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("MoviesAdmin.Models.AudienceRating", b =>
+                {
+                    b.Navigation("Movies");
                 });
 
             modelBuilder.Entity("MoviesAdmin.Models.Genre", b =>

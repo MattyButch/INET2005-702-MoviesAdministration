@@ -31,7 +31,14 @@ namespace MoviesAdmin.Models
         [Required]
         public string Rating { get; set; } = string.Empty; //Movie rating as in "PG-14" or "R", not viewer or critic score 
         [Required]
-        public string AudienceRating { get; set; } = string.Empty;
+        
+
+        //Audience Rating
+        [Display(Name = "Audience Rating")]
+        public int AudienceRatingId { get; set; }
+
+        [ValidateNever]
+        public AudienceRating AudienceRating { get; set; } = null!;
         //Url to image stored in Azure storage
         public string ImageUrl { get; set; } = string.Empty;
 
