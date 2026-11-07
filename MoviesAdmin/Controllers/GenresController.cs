@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesAdmin.Models;
+using Microsoft.AspNetCore.Authorization;
 
+
+[Authorize]
 public class GenresController : Controller
 {
     private readonly MoviesAdminContext _context;
@@ -40,6 +43,7 @@ public class GenresController : Controller
     }
 
     // GET: GENRES/Create
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
@@ -50,6 +54,7 @@ public class GenresController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([Bind("Id,GenreName")] Genre genre)
     {
         if (ModelState.IsValid)
@@ -62,6 +67,7 @@ public class GenresController : Controller
     }
 
     // GET: GENRES/Edit/5
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -82,6 +88,7 @@ public class GenresController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int? id, [Bind("Id,GenreName")] Genre genre)
     {
         if (id != genre.Id)
@@ -113,6 +120,7 @@ public class GenresController : Controller
     }
 
     // GET: GENRES/Delete/5
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -133,6 +141,7 @@ public class GenresController : Controller
     // POST: GENRES/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
         var genre = await _context.Genre.FindAsync(id);

@@ -37,6 +37,8 @@ public class MoviesController : Controller
         }
 
         var movie = await _context.Movie
+            //Adds reviews to the movie details
+            .Include(m => m.Reviews)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (movie == null)
         {
@@ -48,6 +50,7 @@ public class MoviesController : Controller
 
     // GET: MOVIES/Create
     [Authorize]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         var genres = _context.Genre.ToList();
@@ -58,7 +61,7 @@ public class MoviesController : Controller
 
         var ratings = _context.AudienceRating.ToList();
 
-        Console.WriteLine($"Ratings Count: {ratings.Count}");
+        //Console.WriteLine($"Ratings Count: {ratings.Count}");
 
         ViewBag.AudienceRatingId = new SelectList(ratings, "Id", "Title");
 
@@ -78,7 +81,7 @@ public class MoviesController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,Rating,AudienceRatingId,GenreId,ReleaseDate")] Movie movie, IFormFile imageFile) //xollects inputs and file input from form
     {
         if (ModelState.IsValid)
@@ -102,7 +105,7 @@ public class MoviesController : Controller
     }
 
     // GET: MOVIES/Edit/5
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -123,7 +126,7 @@ public class MoviesController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,Rating,AudienceRatingId,ReleaseDate,ImageUrl")] Movie movie)
     {
         if (id != movie.Id)
@@ -155,7 +158,7 @@ public class MoviesController : Controller
     }
 
     // GET: MOVIES/Delete/5
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -176,7 +179,7 @@ public class MoviesController : Controller
     // POST: MOVIES/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int? id)
     {
         var movie = await _context.Movie.FindAsync(id);

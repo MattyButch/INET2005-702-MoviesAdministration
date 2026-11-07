@@ -8,11 +8,13 @@ namespace MoviesAdmin.Models
     {
         public int Id { get; set; } //Unique ID for each movie, use as primary key
 
-        //Foreign Key
-        //public int GenreID { get; set; }
-
         //naviagation property
         [Display(Name = "Genre")]
+
+        //navigation property
+        public List<Review> Reviews { get; set; } = new List<Review>();
+
+        //
         public int GenreId { get; set; }
 
         [ValidateNever]
@@ -26,8 +28,10 @@ namespace MoviesAdmin.Models
         public string Description { get; set; } = string.Empty;
         [Required]
         [Range (0, 60000)]
-        public int Length { get; set; } //Length of movie in minutes. Makes the most sense to have it as Int. 
+        public int Length { get; set; } //Length of movie in minutes.
        
+
+        //TO DO REMOVE 
         [Required]
         public string Rating { get; set; } = string.Empty; //Movie rating as in "PG-14" or "R", not viewer or critic score 
         [Required]

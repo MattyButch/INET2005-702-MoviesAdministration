@@ -16,9 +16,9 @@ builder.Services.AddDbContext<MoviesAdminContext>(options => options.UseSqlServe
 
 builder.Services.AddAuth0WebAppAuthentication(options =>
 {
-options.Domain = builder.Configuration["Auth0:Domain"];
-options.ClientId = builder.Configuration["Auth0:ClientId"];
-options.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
+    options.Domain = builder.Configuration["Auth0:Domain"];
+    options.ClientId = builder.Configuration["Auth0:ClientId"];
+    options.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
 });
 
 builder.Services.Configure<OpenIdConnectOptions>(Auth0Constants.AuthenticationScheme, options =>
@@ -30,6 +30,15 @@ options.TokenValidationParameters = new TokenValidationParameters
 };
 });
 
+
+//builder.Services.Configure<OpenIdConnectOptions>(Auth0Constants.AuthenticationScheme, options =>
+//{
+//    options.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        NameClaimType = "name",
+//        RoleClaimType = "https://localhost:7173/roles" // change to your app's domain
+//    };
+//});
 //End Auth0
 
 

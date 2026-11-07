@@ -1,26 +1,39 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace MoviesAdmin.Models
 {
     public class Review
-    {
-        public int Id { get; set; }
-        [StringLength(5000, MinimumLength = 10)]
-        [Required]
-        public string Description { get; set; } = string.Empty;
 
-        [StringLength(100, MinimumLength = 1)]
+    {
+        // primary key
+        public int Id { get; set; }
+
+        // foreign key
+        public int MovieId { get; set; }
+
+        // navigation property
+        [ValidateNever]
+        [ScaffoldColumn(false)]
+        public Movie Movie { get; set; } = null!;
+
+
+
         [Required]
-        public string CreatedBy { get; set; } = string.Empty;
+        [StringLength(10000)]
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         [Range(1, 5)]
-        public int Rating { get; set; }
+        public int Rating { get; set; } // 1-5 stars
 
-        [Required]
-        public Boolean IsPublished { get; set; }
+        //[Required]
+        public bool IsPublished { get; set; } = false;
 
-        [DisplayFormat(DataFormatString = "{0:yyyy - MM - dd}")]
+        public string CreatedBy { get; set; } = string.Empty;
+
+        [ScaffoldColumn(false)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
     }
 }
