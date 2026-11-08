@@ -5,6 +5,7 @@
     ViewData["Title"] = "Details";
 }
 
+
 <h1 class="mb-4">Movie Details - @Model.Title</h1>
 
 <img src="@Model.ImageUrl" alt="@Model.Title" class="w-50" />
@@ -35,6 +36,10 @@
 
                         @descriptionWithBreaks
                     </td>
+                </tr>
+                <tr>
+                    <th>Genre</th>
+                    <td>@Model.Genre.GenreName</td>
                 </tr>
 
                 <tr>

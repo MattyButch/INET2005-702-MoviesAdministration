@@ -24,10 +24,12 @@ namespace MoviesAdmin.Models
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        [Display(Name = "Movie Rating")]
         [Range(1, 5)]
         public int Rating { get; set; } // 1-5 stars
 
         //[Required]
+        [Display(Name = "Publish")]
         public bool IsPublished { get; set; } = false;
 
         public string CreatedBy { get; set; } = string.Empty;

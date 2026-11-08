@@ -17,6 +17,10 @@ html {
   }
 }
 
+h1 {
+    font-family: "Aboreto", system-ui;
+}
+
 .Pig-Font {
     font-family: "Aboreto", system-ui;
 }
@@ -182,4 +186,38 @@ footer * {
         width: 32px;
         height: 32px;
         object-fit: contain;
+    }
+
+/*Text box*/
+    .description-box {
+        min-height: 200px;
+        width: 100%;
+        resize: vertical;
+    }
+
+/*Sorting bar*/
+    .movie-filter-bar {
+        display: flex;
+        gap: 15px;
+        margin: 20px 0 30px 0;
+        align-items: center;
+    }
+
+    .movie-filter-bar select {
+        max-width: 250px;
+    }
+
+    .movie-filter-bar button {
+        min-width: 120px;
+    }
+
+/*Buttons in movies column*/
+    .actions-column {
+        vertical-align: top;
+    }
+
+    .actions-column .btn {
+        display: block;
+        width: 100px;
+        margin-bottom: 5px;
     }

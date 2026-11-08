@@ -20,11 +20,42 @@ public class MoviesController : Controller
 
     // GET: MOVIES
     [Authorize]
-    public async Task<IActionResult> Index()    
+    public async Task<IActionResult> Index(string sortOrder = "date",int page = 1, int? genreId = null)
     {
-        return View(await _context.Movie
-            .OrderByDescending(m => m.ReleaseDate)
-            .ToListAsync());
+        const int pageSize = 10;
+
+        var query = _context.Movie.AsQueryable();
+        //Genre query
+        if (genreId.HasValue)
+        {
+            query = query.Where(m => m.GenreId == genreId.Value);
+        }
+
+        // Sorting
+        if (sortOrder == "title")
+        {
+            query = query.OrderBy(m => m.Title);
+        }
+        else
+        {
+            query = query.OrderByDescending(m => m.ReleaseDate);
+        }
+
+        // Count total movies
+        int totalMovies = await query.CountAsync();
+
+        var movies = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+        // ViewBag values for paging/sorting controls
+        ViewBag.CurrentSort = sortOrder;
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = (int)Math.Ceiling(totalMovies / (double)pageSize);
+        ViewBag.CurrentGenre = genreId;
+
+        ViewBag.Genres = await _context.Genre.OrderBy(g => g.GenreName).ToListAsync();
+
+
+        return View(movies);
     }
 
     // GET: MOVIES/Details/5
@@ -38,6 +69,7 @@ public class MoviesController : Controller
 
         var movie = await _context.Movie
             //Adds reviews to the movie details
+            .Include(m => m.Genre)
             .Include(m => m.Reviews)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (movie == null)
@@ -86,10 +118,16 @@ public class MoviesController : Controller
     {
         if (ModelState.IsValid)
         {
+            
+            //Default rating is three. 
+            movie.AudienceRatingId = 3;
 
+            // Generate unique filename
+            string extension = Path.GetExtension(imageFile.FileName);
+            string guidFile = $"{Guid.NewGuid()}{extension}";
 
             //Save file in Azure storage
-            string imageURL = await _blobService.UploadFileAsync(imageFile, imageFile.FileName);
+            string imageURL = await _blobService.UploadFileAsync(imageFile, guidFile);
 
             // Save image Url in Trail record
             movie.ImageUrl = imageURL;
@@ -118,6 +156,14 @@ public class MoviesController : Controller
         {
             return NotFound();
         }
+        var genres = _context.Genre.ToList();
+        ViewBag.GenreId = new SelectList(
+            genres,
+            "Id",
+            "GenreName",
+            movie.GenreId
+        );
+
         return View(movie);
     }
 
@@ -127,7 +173,7 @@ public class MoviesController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,Rating,AudienceRatingId,ReleaseDate,ImageUrl")] Movie movie)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,Rating,GenreId,AudienceRatingId,ReleaseDate,ImageUrl")] Movie movie)
     {
         if (id != movie.Id)
         {

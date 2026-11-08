@@ -4,60 +4,56 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Movie</h4>
+<h1>Create Movie</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="mb-3">
+            <div class="col-md-8">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="col-md-8">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" ="form-control" rows="6"></textarea>
+                <textarea asp-for="Description" class="form-control description-box" rows="6"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="col-md-8">
                 <label asp-for="Length" class="control-label"></label>
                 <input asp-for="Length" class="form-control" />
                 <span asp-validation-for="Length" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="col-md-8">
                 <label asp-for="Rating" class="control-label"></label>
                 <input asp-for="Rating" class="form-control" />
                 <span asp-validation-for="Rating" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            <div class="col-md-8">
                 <label asp-for="GenreId" class="control-label"> </label> 
                 <select asp-for="GenreId" class="form-control" asp-items="ViewBag.GenreId"> 
                     <option value="">-- Select Genre --</option> 
                     </select> <span asp-validation-for="GenreId" class="text-danger"></span> </div>
-
             @* <div class="mb-3">
                 <label asp-for="AudienceRatingId" class="control-label"></label>
                 <select asp-for="AudienceRatingId" class="form-control" asp-items="ViewBag.AudienceRatingId">
                     <option value="">-- Select Audience Rating --</option> </select>
                     <span asp-validation-for="AudienceRatingId" class="text-danger"></span> </div> *@
-
-            <div class="mb-3">
+            <div class="col-md-8">
                 <label asp-for="ReleaseDate" class="control-label"></label>
                 <input asp-for="ReleaseDate" type="date" class="form-control" />
                 <span asp-validation-for="ReleaseDate" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="col-md-8">
                 <label>Image Upload</label>
                 <input type="file" id="ImageFile" name="imageFile" />
-            </div>B
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-pig btn-lg shadow-sm" />
             </div>

@@ -120,7 +120,7 @@ public class ReviewsController : Controller
             return NotFound();
         }
 
-        var existingReview = await _context.Review.FindAsync(id);
+        var existingReview = await _context.Review.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id);
 
         if (existingReview != null && existingReview.IsPublished)
         {

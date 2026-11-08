@@ -9,12 +9,12 @@ namespace MoviesAdmin.Models
         public int Id { get; set; } //Unique ID for each movie, use as primary key
 
         //naviagation property
-        [Display(Name = "Genre")]
 
         //navigation property
         public List<Review> Reviews { get; set; } = new List<Review>();
 
         //
+        [Display(Name = "Genre")]
         public int GenreId { get; set; }
 
         [ValidateNever]
@@ -28,11 +28,13 @@ namespace MoviesAdmin.Models
         public string Description { get; set; } = string.Empty;
         [Required]
         [Range (0, 60000)]
+        [Display(Name = "Length (minutes)")]
         public int Length { get; set; } //Length of movie in minutes.
 
 
         //TO DO REMOVE 
         [Required]
+        [Display(Name = "Movie Rating")]
         public string Rating { get; set; } = string.Empty; //Movie rating as in "PG-14" or "R", not viewer or critic score 
         [Required]
 
@@ -45,6 +47,7 @@ namespace MoviesAdmin.Models
         public AudienceRating AudienceRating { get; set; } = null!;
         //Url to image stored in Azure storage
         public string ImageUrl { get; set; } = string.Empty;
+        [Display(Name = "Release Date")]
 
         [DisplayFormat(DataFormatString = "{0:yyyy - MM - dd}")]
         public DateTime ReleaseDate { get; set; } = DateTime.Now; 

@@ -4,7 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Movies Index</h1>
+<span class="Pig-Font">
+    <h1>Movies</h1>
+</span>
 
 @if (User.IsInRole("Admin"))
 {
@@ -14,13 +16,45 @@
         </a>
     </p>
 }
-
+<h4 class="mb-3">Filter Movies</h4>
 <div class="card shadow-lg">
     <div class="card-header bg-dark text-white">
         Movie Database
     </div>
 
-    <div class="card-body">
+    <form asp-action="Index" method="get" class="movie-filter-bar">
+
+        <select name="genreId" class="form-select">
+            @* Sort by genre *@
+            <option value="">All Genres</option>
+            @foreach (var genre in ViewBag.Genres)
+            {
+                if (ViewBag.CurrentGenre == genre.Id)
+                {
+                    <option value="@genre.Id" selected>
+                        @genre.GenreName
+                    </option>
+                }
+                else
+                {
+                    <option value="@genre.Id">
+                        @genre.GenreName
+                    </option>
+                }
+            }
+        </select>
+
+        <select name="sortOrder" class="form-select">
+            <option value="date">Release Date</option>
+            <option value="title">Title</option>
+        </select>
+
+        <button type="submit" class="btn btn-pig-dark">
+            Apply
+        </button>
+
+    </form>
+        </div>
         <table class="table table-hover table-striped table-bordered align-middle">
             <thead class="table-dark">
                 <tr>
@@ -68,7 +102,7 @@
                     <td>
                         @Html.DisplayFor(model => item.ReleaseDate)
                     </td>
-                    <td> 
+                    <td class="actions-column">
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-pig-dark btn-action">Details</a>
                         @if (User.IsInRole("Admin")){
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-truffle btn-action">Edit</a>
@@ -81,5 +115,18 @@
         }
             </tbody>
         </table>
+        <div class="mt-3">
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <a asp-action="Index"
+                   asp-route-page="@i"
+                   asp-route-sortOrder="@ViewBag.CurrentSort"
+                   class="btn btn-outline-secondary btn-sm">
+                    @i
+                </a>
+            }
+
+        </div>
     </div>
 </div>

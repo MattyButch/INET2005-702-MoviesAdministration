@@ -1,11 +1,14 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesAdmin.Models;
 
+[Authorize(Roles = "Admin")]
 public class AudienceRatingsController : Controller
 {
     private readonly MoviesAdminContext _context;
+
 
     public AudienceRatingsController(MoviesAdminContext context)
     {
@@ -37,6 +40,7 @@ public class AudienceRatingsController : Controller
     }
 
     // GET: AUDIENCERATINGS/Create
+
     public IActionResult Create()
     {
         return View();
@@ -47,6 +51,7 @@ public class AudienceRatingsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+
     public async Task<IActionResult> Create([Bind("Id,Title")] AudienceRating audiencerating)
     {
         if (ModelState.IsValid)
@@ -59,6 +64,7 @@ public class AudienceRatingsController : Controller
     }
 
     // GET: AUDIENCERATINGS/Edit/5
+
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -79,6 +85,7 @@ public class AudienceRatingsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+
     public async Task<IActionResult> Edit(int? id, [Bind("Id,Title")] AudienceRating audiencerating)
     {
         if (id != audiencerating.Id)

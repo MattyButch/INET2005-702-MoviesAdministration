@@ -11,8 +11,20 @@
         Review Database
     </div>
 
-    <div class="card-body p-0">
-        <table class="table table-striped mb-0">
+    <div class="card-body p-0"> 
+            <div class="mb-3">
+                <a asp-action="Index"
+                   asp-route-sortOrder="date"
+                   class="btn btn-pig-dark">
+                    Sort by Release Date
+                </a>
+
+                <a asp-action="Index"
+                   asp-route-sortOrder="title"
+                   class="btn btn-truffle">
+                    Sort by Title
+                </a>
+            </div><table class="table table-striped mb-0">
             <thead>
                 <tr>
                     <th>Movie</th>
@@ -82,5 +94,18 @@
                 }
             </tbody>
         </table>
+        <div class="mt-3">
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <a asp-action="Index"
+                   asp-route-page="@i"
+                   asp-route-sortOrder="@ViewBag.CurrentSort"
+                   class="btn btn-outline-secondary btn-sm">
+                    @i
+                </a>
+            }
+
+        </div>
     </div>
 </div>
