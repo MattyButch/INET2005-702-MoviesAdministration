@@ -4,39 +4,50 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Genres</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.GenreName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.GenreName)
-            </td>
-            <td>
-                @if (User.IsInRole("Admin"))
-                {
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>                
-                }
-                @if (User.IsInRole("Admin")){
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    }
-                @if (User.IsInRole("Admin")){
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                }
-            </td>
-        </tr>
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Create" class="btn btn-pig btn-lg shadow-sm">
+        Add Genre
+    </a>
+}
+<div class="card shadow">
+    <div class="card-header bg-dark text-white">
+        Genre Database
+    </div>
+
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0"
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GenreName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.GenreName)
+                    </td>
+                    <td class="genre-actions">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-pig-dark btn-action">Details</a>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-truffle btn-action">Edit</a>
+                        }
+                        @if (User.IsInRole("Admin")){
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-action"> Delete </a>
+                        }
+                    </td>
+                </tr>
 }
     </tbody>
 </table>
+</div>

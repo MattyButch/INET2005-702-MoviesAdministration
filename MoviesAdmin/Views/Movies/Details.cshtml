@@ -5,67 +5,72 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="mb-4">Movie Details - @Model.Title</h1>
 
 <img src="@Model.ImageUrl" alt="@Model.Title" class="w-50" />
 
+
+@* Note: Removed DL with TB to look more inline with index view *@
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            Movie Details
+        </div>
+
+        <table class="table mb-0">
+            <tbody>
+                <tr>
+                    <th>Title</th>
+                    <td>@Model.Title</td>
+                </tr>
+
+                <tr>
+                    <th>Description</th>
+                    <td>
+                        @{
+                            var descriptionWithBreaks = new HtmlString(Model.Description
+                                .Replace("\r\n", "<br />")
+                                .Replace("\n", "<br />")
+                                .Replace("\r", "<br />"));
+                        }
+
+                        @descriptionWithBreaks
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Length</th>
+                    <td>@Model.Length</td>
+                </tr>
+
+                <tr>
+                    <th>Rating</th>
+                    <td>@Model.Rating</td>
+                </tr>
+
+                <tr>
+                    <th>Release Date</th>
+                    <td>@Model.ReleaseDate.ToString("MMM dd, yyyy")</td>
+                </tr>
+                <tr>
+                    <th>Published Reviews</th>
+                    <td>@Model.Reviews.Count(r => r.IsPublished)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 <div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @*Html.DisplayFor(model => model.Description) *@
-        @{
-            var descriptionWithBreaks = new HtmlString(Model.Description
-            .Replace("\r\n", "<br />")
-            .Replace("\n", "<br />")
-            .Replace("\r", "<br />"));
-        }
-        @descriptionWithBreaks
-            
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Length)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Length)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
-    <p>
-        Published Reviews:
-        @Model.Reviews.Count(r => r.IsPublished)
-    </p>
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-truffle">
+            Edit Movie
+        </a>
+    }
     
     @*WRITE A REVIEW*@
-    <a asp-controller="Reviews"
-       asp-action="Create"
-       asp-route-movieId="@Model.Id">Write Review</a>
-    <a asp-action="Index">Back to List</a>
+        <a asp-controller="Reviews" asp-action="Create" asp-route-movieId="@Model.Id" class="btn btn-pig-dark">
+            Write Review
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            Back to Movies
+        </a>
 </div>

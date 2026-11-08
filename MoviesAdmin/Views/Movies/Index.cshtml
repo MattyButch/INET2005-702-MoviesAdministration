@@ -25,6 +25,9 @@
             <thead class="table-dark">
                 <tr>
                     <th>
+                        Poster
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Title)
                     </th>
                     <th>
@@ -39,7 +42,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.ReleaseDate)
                     </th>
-                    <th></th>
+                    <th>
+                        Actions
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -63,18 +68,13 @@
                     <td>
                         @Html.DisplayFor(model => item.ReleaseDate)
                     </td>
-                    <td>
+                    <td> 
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-pig-dark btn-action">Details</a>
                         @if (User.IsInRole("Admin")){
-                            <a asp-action="Edit" asp-route-id="@item.Id"
-                            class="btn btn-sm btn-warning">Edit</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-truffle btn-action">Edit</a>
                         }
- 
-                        <a asp-action="Details" asp-route-id="@item.Id"
-                        class="btn btn-sm btn-info">Details</a>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="Delete" asp-route-id="@item.Id"
-                            class="btn btn-sm btn-danger">Delete</a>
+                        @if (User.IsInRole("Admin")){
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-action">Delete</a>
                         }
                     </td>
                 </tr>

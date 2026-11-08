@@ -29,13 +29,13 @@ namespace MoviesAdmin.Models
         [Required]
         [Range (0, 60000)]
         public int Length { get; set; } //Length of movie in minutes.
-       
+
 
         //TO DO REMOVE 
         [Required]
         public string Rating { get; set; } = string.Empty; //Movie rating as in "PG-14" or "R", not viewer or critic score 
         [Required]
-        
+
 
         //Audience Rating
         [Display(Name = "Audience Rating")]

@@ -117,12 +117,16 @@ footer * {
     background-color: var(--brand-accent);
     color: white;
     border: none;
+    margin: 12px 28px;
+    font-size: 1.25rem;
 }
 
  
 .btn-pig:hover {
     background-color: var(--brand-primary);
     color: white;
+    margin: 12px 28px;
+    font-size: 1.25rem;
 }
 
 /*Picutres*/
@@ -132,3 +136,50 @@ footer * {
     height: auto;
 
 }
+
+/*Custom button rules*/
+    .btn-truffle {
+        background-color: #d4a017;
+        color: white;
+        border: none;
+    }
+
+    .btn-truffle:hover {
+        background-color: #b88914;
+        color: white;
+    }
+
+    .btn-pig-dark {
+        background-color: #0b2242;
+        color: white;
+        border: none;
+    }
+
+    .btn-pig-dark:hover {
+        background-color: #163866;
+        color: white;
+    }
+
+
+/*Class to make the buttons look more uniform*/
+    .btn-action {
+        width: 90px;
+        margin-right: 4px;
+    }
+/*Class to keep Edit/Delete/Details buttons in Genre from taking up half the table*/
+    .genre-actions {
+        width: 320px;
+        white-space: nowrap;
+    }
+
+/*Status Pig rules*/
+    .review-status {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .status-pig {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+    }

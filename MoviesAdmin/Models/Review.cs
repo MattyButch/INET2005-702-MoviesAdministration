@@ -20,7 +20,7 @@ namespace MoviesAdmin.Models
 
 
         [Required]
-        [StringLength(10000)]
+        [StringLength(1000)]
         public string Description { get; set; } = string.Empty;
 
         [Required]
